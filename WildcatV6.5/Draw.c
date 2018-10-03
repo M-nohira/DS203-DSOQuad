@@ -513,6 +513,14 @@ if(Row & 1){                                       // Odd row process
         LCD_Buffer[1][V_Trigg[TRACK2].Value] |= Color[1];
       }
 
+//------------------------- Draw the GND Vernie data ---------------------------
+if(_Mode != SCAN)
+{
+  for(i=0;i < 4;++i)
+  {
+    if(Title[i][SOURCE].Value != HIDE) LCD_Buffer[1][Title[i][POSI].Value] |= Color[i];
+  }
+}
 //------------------------- Draw the X Vernie data -----------------------------
       Tmp2=ScaleXposi();
 

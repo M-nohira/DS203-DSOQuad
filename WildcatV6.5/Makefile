@@ -13,8 +13,8 @@ STM_LIB=FWLib/inc
 #ORIGINAL >>>> CFLAGS = -Wall -Os -I. -Iinc  -Werror -mcpu=cortex-m3 -mthumb -msoft-float -MD -I $(STM_LIB)
 #NEED AT LEAST >>>> CFLAGS = -Os -Iinc -mcpu=cortex-m3 -mthumb -fno-common -fzero-initialized-in-bss -I $(STM_LIB)
 
-#CFLAGS = -Wall -Os -I. -Iinc  -Werror -mcpu=cortex-m3 -mthumb -fno-common -fzero-initialized-in-bss -msoft-float -MD -I $(STM_LIB)
-CFLAGS = -Wall -O2 -I. -Iinc  -Werror -mcpu=cortex-m3 -mthumb -fno-common -fzero-initialized-in-bss -msoft-float -MD -I $(STM_LIB)
+CFLAGS = -Wall -Os -I. -Iinc  -Werror -mcpu=cortex-m3 -mthumb -fno-common -fzero-initialized-in-bss -msoft-float -MD -I $(STM_LIB)
+#CFLAGS = -Wall -O2 -I. -Iinc  -Werror -mcpu=cortex-m3 -mthumb -fno-common -fzero-initialized-in-bss -msoft-float -MD -I $(STM_LIB)
 
 #-os = optimise for size
 #-o2 = optimise for speed
@@ -35,7 +35,7 @@ OBJS = Calibrat.o Draw.o Files.o Function.o Interrupt.o Main.o Menu.o Process.o 
 OBJS +=cortexm3_macro.o
 #TARGETS = app1.hex app2.hex app3.hex
 #TARGETS = app1.hex app2.hex
-TARGETS = app1.hex
+TARGETS = app2.hex
 
 
 all: $(OBJS) $(TARGETS)
@@ -49,7 +49,7 @@ clean:
 	$(CC) $(CFLAGS) -c -o $@ $*.c
 
 .s.o:
-	$(CC) $(AFLAGS) -c -o $@ $*.S
+	$(CC) $(AFLAGS) -c -o $@ $*.s
 
 %.elf: %.lds $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LDFLAGS) -T $<
