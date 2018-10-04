@@ -261,8 +261,8 @@ menu Title[13][4]=
   {//======================= Title Output Signal Group =========================  <5>
     {(char*)FO_TYPE, (u16*)O_COLOR,   9-1, CIRC,  239,  228,     3, UPDAT}, //  Output Wave Kind    282 228       
     {(char*)FO_STR,  (u16*)O_COLOR+1,23-1,    0,  239,  216,    13, UPDAT}, //  Output Frequency    282 216      
-    {(char*)NumStr,  (u16*)O_COLOR, 30000, NUM3,  212,  216, 15000, UPDAT}, //  Duty value      100
-    {(char*)NumStr,  (u16*)O_COLOR,   100, NUM3,  196,  216,    50, UPDAT}, //  Attenuazione    251,202         
+    {(char*)NumStr,  (u16*)O_COLOR, 30000, NUM3,  172,  216, 15000, UPDAT}, //  Duty value      100
+    {(char*)NumStr,  (u16*)O_COLOR ,  100, NUM3,  196,  216,    50, UPDAT}, //  Attenuazione    251,202         
   },
   {//========================= Title Time Base Group ===========================  <6>
     {(char*)MODESTR, (u16*)XCOLOR,    7-1, CIRC,  290,  228,     0, UPDAT}, //  Sync Mode    5 numero modi  239  228
@@ -679,9 +679,19 @@ void Display_Title(void)
 if(((Sweep)||(_Kind==5))&&(_Kind<6)){
   O_COLOR[0]=(SCRN<<8)+VERNIE;  
   O_COLOR[1]=(VERNIE<<8)+SCRN;
-}else{
-  O_COLOR[0]=(SCRN<<8)+NOTE1;  
-  O_COLOR[1]=(NOTE1<<8)+SCRN;
+}
+else if(_Kind==6)//Custom Color for WaveForm Output
+{
+  O_COLOR[1]=(TEXT3<<8)+SCRN;
+  //O_COLOR[1]=(SCRN<<8)+TEXT3;
+  O_COLOR[0]=(TEXT3<<8)+SCRN;
+}
+else{
+  O_COLOR[1]=(TEXT3<<8)+SCRN;
+  O_COLOR[0]=(SCRN<<8)+TEXT3;
+
+  //O_COLOR[0]=(SCRN<<8)+NOTE1;  
+  //O_COLOR[1]=(NOTE1<<8)+SCRN;
 }
 
       //if(TimedDeltaView>0)ShiftLeft=2; else ShiftLeft=0;	//move it away from right edge to clear border 
@@ -697,14 +707,26 @@ if(((Sweep)||(_Kind==5))&&(_Kind<6)){
       if ((Current == OUTPUT)&&((_Det==DUTYPWM) || (_Det==OUTATT))){ z=Twink; }else { z=INV;}
 
       if  (Title[OUTPUT][KIND].Value == PWM)                                 
-	{
+	    {
         u8ToDec3(Title[OUTPUT][DUTYPWM].Str,(Title[OUTPUT][DUTYPWM].Value+150)/300,0);
-        Print_Str(172,  216,(Title[OUTPUT][DUTYPWM].Color[0]), z, "Dut% ");            //225,202[Title[OUTPUT][PWM].Value]
-        Print_Str(212, 216,O_COLOR[0],z,Title[OUTPUT][DUTYPWM].Str);
+        //Print_Str(172,  216,(Title[OUTPUT][DUTYPWM].Color[0]), z, "Dut% ");            //225,202[Title[OUTPUT][PWM].Value]
+        Print_Str(172, 216,O_COLOR[0],z,"Dty ");
+        Print_Str(203, 216,O_COLOR[0],z,Title[OUTPUT][DUTYPWM].Str);
+        Print_Str(228,216,O_COLOR[0],z,"%");
       }  
+      else if(_Kind == 6)
+      {
+        //Print_Str(172,  216, (Title[OUTPUT][DUTYPWM].Color[0]), z, "Vo ");//230,202
+
+        O_COLOR[1]=(SCRN<<8)+TEXT3;
+        Print_Str(172,216,O_COLOR[1],z,"Vo ");
+        Int2Str(NumStr, (Title[OUTPUT][OUTATT].Value*28000), V_UNIT, 2, UNSIGN,0);     //26000 
+        Print_Str(196,216,O_COLOR[1],z,NumStr);
+        O_COLOR[1]=(TEXT3<<8)+SCRN;
+      }
       else
       {
-        Print_Str(172,  216, (Title[OUTPUT][DUTYPWM].Color[0]), z, "Vo ");//230,202
+        Print_Str(172,216,O_COLOR[0],z,"Vo ");
         Int2Str(NumStr, (Title[OUTPUT][OUTATT].Value*28000), V_UNIT, 2, UNSIGN,0);     //26000 
         Print_Str(196,216,O_COLOR[0],z,NumStr);
       }

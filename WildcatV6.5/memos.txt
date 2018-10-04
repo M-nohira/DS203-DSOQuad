@@ -1,0 +1,17 @@
+/***************u16 Color[16] = { CYAN,   // #0  TRACK1 
+                  YEL,    // #1  TRACK2
+                  PURPL,  // #2  TRACK3 
+                  GRN,    // #3  TRACK4 
+                  WHT,    // #4  VERNIE   
+                  BLACK,  // #5  SCRN
+                  ORANGE, // #6  X_POSI 
+                  BLUE,   // #7  TRIGG 
+                  CYAN,   // #8  VERNIE  
+                  GRAY,   // #9  GRID 
+                  WHT,    // #10 TEXT 
+                  GRN,    // #11 TEXT2
+                  BLUE,   // #12 TEXT3
+                  GRAY,   // #13 BLOCK
+                  YEL,    // #14 SIDE
+                  RED };  // #15 NOTE 
+****************************************************************

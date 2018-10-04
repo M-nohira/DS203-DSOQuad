@@ -35,7 +35,7 @@ OBJS = Calibrat.o Draw.o Files.o Function.o Interrupt.o Main.o Menu.o Process.o 
 OBJS +=cortexm3_macro.o
 #TARGETS = app1.hex app2.hex app3.hex
 #TARGETS = app1.hex app2.hex
-TARGETS = app2.hex
+TARGETS = app1.hex
 
 
 all: $(OBJS) $(TARGETS)
